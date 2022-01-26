@@ -48,7 +48,7 @@ public class TestController {
     @RequestMapping("create-account")
     public boolean createAccount (String username, String password) {
         boolean success = false;
-        boolean alreadyExists = persist.getTokenByUsernameAndPassword(username, password) != null;
+        boolean alreadyExists = persist.usernameExists(username);
         if (!alreadyExists) {
             UserObject userObject = new UserObject();
             userObject.setUsername(username);

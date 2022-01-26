@@ -31,6 +31,18 @@ public class Persist {
         this.sessionFactory = sf;
     }
 
+    public boolean usernameExists(String username){
+        boolean exists = false;
+        Session session = sessionFactory.openSession();
+        UserObject userObject = (UserObject) session.createQuery("FROM UserObject WHERE username = :username")
+                .setParameter("username", username)
+                .uniqueResult();
+        session.close();
+        if (userObject != null) {
+            exists = true;
+        }
+        return exists;
+    }
 
     public String getTokenByUsernameAndPassword(String username, String password) {
         String token = null;
